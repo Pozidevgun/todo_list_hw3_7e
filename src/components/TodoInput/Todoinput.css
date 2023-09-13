@@ -1,0 +1,7 @@
+.input-group{
+  flex-wrap: nowrap;
+}
+.input-group input{
+  width: 100%;
+  border: 1px solid #bbb
+}
