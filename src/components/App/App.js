@@ -18,7 +18,7 @@ export default class App extends Component {
       item: e.target.value
     })
   }
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const newItem ={
       id: this.state.id,
@@ -30,11 +30,29 @@ export default class App extends Component {
       item:'',
       id: uuidv4(),
       editItem: false
-    }, () => { console.log(this.state) })
+    })
   }
-  clearList = () => { console.log('clear list ') }
-  handleDelete = (id) => { console.log(`handle delete ${id}`) }
-  handleEdit = (id) => { console.log(`handle edit ${id}`) }
+  clearList = () => {
+    this.setState({
+      items: []
+    }) 
+  }
+  handleDelete = id => {
+    const filterItems = this.state.items.filter(item=> item.id !== id);
+    this.setState({
+      items: filterItems
+    })
+  }
+  handleEdit = id => {
+    const filterItems = this.state.items.filter(item => item.id !== id);
+    const selectedItem = this.state.items.find(item=> item.id === id);
+    this.setState({
+      items: filterItems,
+      item: selectedItem.title,
+      id: id,
+      editItem: true
+    })
+  }
   render() {
    
     return (
