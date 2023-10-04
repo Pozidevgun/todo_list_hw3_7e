@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import TodoInput from '../TodoInput/TodoInput'
 import TodoList from '../TodoList/TodoList'
+import './App.css'
 
 // show comments
 export default class App extends Component {
@@ -10,7 +11,8 @@ export default class App extends Component {
     items: [],
     id: uuidv4(),
     item: '',
-    editItem: false
+    editItem: false,
+    newItem: false,
   };
 
   handleChange = (e) => {
@@ -29,7 +31,8 @@ export default class App extends Component {
       items:updatedItems,
       item:'',
       id: uuidv4(),
-      editItem: false
+      editItem: false,
+      newItem: false,
     })
   }
   clearList = () => {
@@ -43,6 +46,11 @@ export default class App extends Component {
       items: filterItems
     })
   }
+  createItem = () =>{
+    this.setState({
+      newItem: true
+    })
+  }
   handleEdit = id => {
     const filterItems = this.state.items.filter(item => item.id !== id);
     const selectedItem = this.state.items.find(item=> item.id === id);
@@ -50,7 +58,8 @@ export default class App extends Component {
       items: filterItems,
       item: selectedItem.title,
       id: id,
-      editItem: true
+      editItem: true,
+      newItem: true,
     })
   }
   render() {
@@ -60,9 +69,13 @@ export default class App extends Component {
           <div className="row">
             <div className="col-10 mx-auto col-md-8 mt-5">
                 <h3 className='text-capitalize text-center'>
-                  Todo input
+                 Create Todo
                 </h3>
+            <div className={this.state.newItem ? "main__button  d-none" : "main__button"} onClick={this.createItem}>
+                    <button className="button bg-primary text-white p-2 d-flex">+</button>
+                </div>
                 <TodoInput 
+                newItem={this.state.newItem}
                 item={this.state.item}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}

@@ -3,9 +3,9 @@ import "./Todoinput.css";
 
 export default class TodoInput extends Component {
   render() {
-    const { item, handleChange, handleSubmit, editItem } = this.props;
+    const { item, handleChange, handleSubmit, editItem, newItem } = this.props;
     return (
-      <div className="card card-body my-3">
+      <div className={newItem ? "card card-body my-3" : "card card-body my-3  d-none"}>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <div className="input-group-prepend">
@@ -16,7 +16,7 @@ export default class TodoInput extends Component {
             <input
               type="text"
               value={item}
-              placeholder="add some task"
+              placeholder="Add some task"
               onChange={handleChange}
             ></input>
           </div>
